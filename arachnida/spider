@@ -1,0 +1,271 @@
+#!/usr/bin/env python
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    spider.py                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cherrero <cherrero@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/11 14:27:58 by cherrero          #+#    #+#              #
+#    Updated: 2023/04/19 23:59:47 by cherrero         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+import sys
+import requests
+import os
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+from datetime import datetime
+import argparse
+import tkinter as tk
+from protego import Protego
+
+# information popup
+def ft_popup(strg1, strg2):
+    width_window = 900
+    height_window = 100
+
+    root = tk.Tk()
+    x_window = root.winfo_screenwidth() // 2 - width_window // 2
+    y_window = root.winfo_screenheight() // 2 - height_window // 2
+
+    position = str(width_window) + "x" + str(height_window) + "+" + str(x_window) + "+" + str(y_window)
+    root.geometry(position)
+
+    root.resizable(0,0)
+    
+    root.title("[spider]")
+    popup = tk.Label(root, text=strg1)
+    popup.pack()
+    label = tk.Label(root, text=strg2)
+    label.pack()
+    button = tk.Button(root, text="OK", height = 2, width = 10, command=root.destroy)
+    button.place(x=100, y=400)
+    button.pack()
+    root.mainloop()
+    return
+
+# write information to log file
+def ft_log_write(txt, type):
+    try:
+        with open(path + '/'+ log_file, type) as f:
+                f.write(txt + "\n")
+    except:
+        print("Error: Log file not found")
+    return
+
+# check if url is in the domain
+def ft_match_url(v_url):
+    try:
+        if urlparse(v_url).netloc == urlparse(url_master).netloc and url_master in v_url:
+            return True
+        else:
+            ft_log_write("URL not match: "+ v_url, 'a')
+            return False
+    except:
+            ft_log_write("Exception: URL not match: "+ v_url, 'a')
+            return False
+
+# check if url is valid
+def ft_valid_url(try_url): 
+    try:
+        req = requests.get(try_url, headers={'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"}, timeout = 6)
+        if req.status_code == 200:
+            return(True)
+    except Exception as exception:
+        ft_log_write(str(exception.args), 'a')
+        return(False)
+    
+def ft_valid_file(v_file):
+    try:
+        with open(v_file, mode="rb") as file:
+            return(True)
+    except FileNotFoundError:
+        print("Error: File not found")
+        return(False)
+    except Exception as exception:
+        print("Error:")
+        print(exception.args)
+        return(False)
+
+# catch images in current level
+def ft_cat_img(img_url):
+    global count_img
+    global l_images_visit
+
+    try:
+        if is_local:
+            try:
+                with open(img_url[7:], mode="rb") as file:
+                    content_file = file.read()
+                soup = BeautifulSoup(content_file, "html.parser")
+            except:
+                ft_log_write("Error: file not found: " + img_url[7:], 'a') 
+                return    
+        else:
+            req = requests.get(img_url, headers={'referer': url_master, 'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"} ,timeout = 6)
+            if req.status_code == 200:
+                soup = BeautifulSoup(req.content, "html.parser")
+            else:
+                ft_log_write("Error request: " + str(req.status_code) + ": " + img_url, 'a')
+                return
+        l_images = soup.find_all('img')
+    except Exception as exception:
+            ft_log_write(str(exception.args), 'a')
+            return
+
+    l_images_prep = []
+    img_prep = ""
+    for img in l_images:
+        try:
+            if is_local:
+                if img['src'].startswith("/"):
+                    img_prep =  url_master + img['src'][1:]
+                elif img['src'].startswith("./"):
+                    img_prep =  url_master + img['src'][2:]
+            elif img['src'].startswith("/"):
+                img_prep = url_master + img['src'][1:]
+            else:
+                img_prep = img['src']
+            if img_prep not in l_images_prep and img_prep not in l_images_visit and urlparse(img_prep).path.split(".")[-1] in formats:
+                l_images_prep.append(img_prep.split("?")[0])
+        except:
+                False
+    for img in l_images_prep:
+        if is_local:
+            try:
+                ft_read_img(img)
+            except:
+                ft_log_write("Error reading local image", "a")
+                return
+        else:
+            try:
+                if exc_file == "" or (exc_file != "" and exc_file not in img.split("/")[-1]):
+                    ft_req_img(img)
+                    ft_log_write("img" + str(count_img) + ": " + img, 'a')
+                    count_img += 1
+                    l_images_visit.append(img)
+                else:
+                    ft_log_write("Exception image: " + img, 'a')
+            except:
+                ft_log_write("Error reading remote image", "a")
+                return
+            
+# request image file and write locally
+def ft_req_img(img_url):
+    req = requests.get(img_url, timeout = 6)
+    if req.status_code == 200:
+        with open(path + "/img" + str(count_img) + "." + img_url.split(".")[-1], "wb") as file:
+            file.write(req.content)
+
+# read local image file and write locally
+def ft_read_img(img_path):
+    with open(img_path[6:], mode="rb") as file:
+            img_file = file.read()
+    with open(path + "/img" + str(count_img) + "." + img_path.split(".")[-1], "wb") as file:
+            file.write(img_file)
+
+# read url's
+def ft_read_url(w_url):
+        global current_level
+        global l_url_lkd
+
+        ft_log_write("Current level---> "+str(current_level), 'a')
+        if is_local:
+            w_url_master = ("/").join(w_url.split("/")[:-1])
+        else:
+            w_url_master = w_url
+        if w_url_master in l_url_lkd:
+            ft_log_write("URL already read: " + w_url_master)
+            return
+        l_url_lkd.append(w_url)
+        ft_cat_img(w_url)
+        if current_level >= level or is_local:
+            return
+        current_level += 1
+
+# read next_level 
+
+        l_url = []
+        try:
+            req = requests.get(w_url, headers={'referer': url_master, 'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"}, timeout = 6)
+            if req.status_code == 200:
+                soup = BeautifulSoup(req.content, "html.parser")
+                l_url = soup.find_all('a')
+        except Exception as exception:
+                ft_log_write(str(exception.args), 'a')
+                return
+        for url in l_url:
+            w_url_prep = ""
+            try:
+                if url['href'].startswith("//"):
+                    w_url_prep = urlparse(w_url).scheme + ":" + url['href']
+                elif url['href'].startswith("/"):
+                    w_url_prep = url_master + url['href'][1:]
+                elif url['href'].startswith("http"):
+                    w_url_prep = url['href']
+                if ft_match_url(w_url_prep) and w_url_prep not in l_url_lkd:
+                   ft_read_url(w_url_prep)
+                else:
+                    ft_log_write("url_NOT_match_: " + w_url_prep + "\n")
+            except:
+                ft_log_write("url_except: " + w_url_prep, 'a')
+        return 
+
+if __name__ == "__main__":
+
+    formats = ["jpg", "jpeg", "png", "gif", "bmp", "docx", "pdf"]
+
+    parser = argparse.ArgumentParser(description='Images spider')
+    parser.add_argument('URL', type=str, help='URL to extract all the images')
+    parser.add_argument('-r', help='recursively downloads the images in URL', action="store_true")
+    parser.add_argument('-l', type=int, help='indicates the maximum depth level of the recursive download [5]', default=5)
+    parser.add_argument('-p', type=str, help='path where the downloaded files will be saved [./data/]', default="./data/")
+    parser.add_argument('-e', type=str, help='word filter image exception []', default="")
+    parser.add_argument('-log', type=str, help='log name [_spider.log]', default="_spider.log")
+    args = parser.parse_args()
+        
+    
+    global current_level
+    current_level = 0
+    global l_url_lkd
+    l_url_lkd = []
+    global l_images_visit
+    l_images_visit = []
+    global count_img
+    count_img = 0
+    url, level, path, exc_file, log_file = args.URL, args.l, args.p, args.e, args.log
+    is_local = False
+
+    try:
+        os.makedirs(path)
+    except OSError:
+        pass
+    if url.startswith("/") and url[1] != "/" and ft_valid_file(url):
+        url_master, url, is_local = "file://" + ("/").join(url.split("/")[:-1]), "file://" + url, True
+    elif url.startswith("file://") and ft_valid_file(url[7:]):
+        is_local = True
+    elif ft_valid_url(url):
+        url_master = urlparse(url).scheme + "://" + urlparse(url).netloc + urlparse(url).path
+    else:
+        sys.exit("Please, give me a valid URL && with correct scheme ;-(")
+    if url_master[-1] != "/":
+        url_master += "/"
+    try:
+        ft_log_write("[spider] Download images log: " + url + " [" + url_master + "] - " + datetime.now().strftime("%d/%m/%Y") + " " + datetime.now().strftime("%H:%M:%S") + "\n", 'w')
+    except FileNotFoundError:
+        ft_log_write("Error in log file", 'a')
+
+# robots skip url
+    try:
+        robots = Protego.parse((requests.get(url_master + "robots.txt")).text)
+        for r_url in robots.sitemaps:
+            l_url_lkd.append(r_url)
+    except Exception as exception:
+            ft_log_write(str(exception.args), 'a')
+
+    print("[spider] Downloading images...")
+    ft_read_url(url)
+    print("Ready!! top depth reached.")
+    ft_popup("Ready!! top depth reached.", "Process finish OK. You can view log file: " + log_file)

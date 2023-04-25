@@ -1,0 +1,145 @@
+#!/usr/bin/env python
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    scorpion.py                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cherrero <cherrero@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/11 14:27:53 by cherrero          #+#    #+#              #
+#    Updated: 2023/04/22 01:33:27 by cherrero         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+from PIL import Image, ExifTags
+import tkinter as tk
+from tkinter import filedialog
+import os
+import datetime
+import sys
+
+global file
+file = ""
+ 
+def ft_apply_changes():
+    img_exif[271] = entry1.get()
+    img_exif[272] = entry2.get()
+    img.save('image_meta_modif.jpg', exif=img_exif)
+    print(f"\nMetadata updated. Make: {entry1.get()} Model: {entry2.get()}. New image: [image_meta_modif.jpg]")
+    ft_load_file()
+
+def ft_delete_metadata():
+    img.save('image_meta_deleted.jpg')
+    print("\nMetadata deleted. New image: [image_meta_deleted.jpg]")
+    ft_load_file()
+
+def ft_browse_file():
+    global file
+    file_path = filedialog.askopenfilename()
+    file = file_path
+    print(file)
+    root.title("[scorpion] metada: " + file)
+    ft_load_file()
+
+def ft_exit():
+    root.destroy()
+    sys.exit("\nChao")
+
+def ft_load_file():
+        global img, entry1, entry2, img_exif, root
+
+        try:
+            img = Image.open(file)
+        except:
+            if file == "":
+                ft_browse_file()
+            else:
+                exit("No image selected. Exiting...")
+
+        mod_date = os.stat(file).st_mtime
+        crt_date = os.stat(file).st_ctime
+        size = os.path.getsize(file)
+
+        f_mod_date = datetime.datetime.fromtimestamp(mod_date)
+        f_crt_date = datetime.datetime.fromtimestamp(crt_date)
+
+        print("\n\nData from file:\n")
+        print("Date/time creation:\t", f_crt_date)
+        print("Date/time modification:\t", f_mod_date)
+        print("Size:\t\t\t", size)
+        print("Image dimension:\t", img.size[0], "x", img.size[1])
+        print("Image format:\t\t", img.format)
+
+        print("\n\nData from exif information:\n")
+
+        img_exif = img.getexif()
+        if len(img_exif) == 0:
+            print('Sorry, image has no exif data.')
+        else:
+            for key, val in img_exif.items():
+                if key in ExifTags.TAGS:
+                    if key == 271:
+                        tag1 = val
+                    elif key == 272:
+                        tag2 = val
+                    print(f'{ExifTags.TAGS[key]}: {val}')
+        
+        print('\n========================================\n')
+
+        root.title("[scorpion] metada: " + file)
+        width_window = 800
+        height_window = 200
+        
+        x_window = root.winfo_screenwidth() // 2 - width_window // 2
+        y_window = root.winfo_screenheight() // 2 - height_window // 2
+
+        position = str(width_window) + "x" + str(height_window) + "+" + str(x_window) + "+" + str(y_window)
+        root.geometry(position)
+
+        root.resizable(0,0)
+
+        # widgets vbles
+        try:
+            # tag1
+            label1 = tk.Label(root, text="")
+            label1 = tk.Label(root, text="Make: ".ljust(20) + str(tag1).ljust(20))
+        except:
+            label1 = tk.Label(root, text="")
+            label1 = tk.Label(root, text="Make: (no data)".ljust(40))
+        entry1 = tk.Entry(root)
+        try:
+            # tag2
+            label2 = tk.Label(root, text="")
+            label2 = tk.Label(root, text="Model: ".ljust(20) + str(tag2).ljust(20))
+        except:
+            label2 = tk.Label(root, text="")
+            label2 = tk.Label(root, text="Model: (no data)".ljust(50))
+        entry2 = tk.Entry(root)
+
+        # widgets window
+        label1.grid(row=1, column=0)
+        entry1.grid(row=1, column=1)
+        label2.grid(row=3, column=0)
+        entry2.grid(row=3, column=1)
+
+if __name__ == "__main__":
+
+        global img, entry1, entry2, img_exif, root
+        root = tk.Tk()
+
+        ft_load_file()
+
+        boton = tk.Button(root, text="Apply changes to metadata", command=ft_apply_changes)
+        boton.grid(row=6, column=10, columnspan=2)
+
+        boton = tk.Button(root, text="Delete metadata", command=ft_delete_metadata)
+        boton.grid(row=8, column=10, columnspan=2)
+
+        browse_button = tk.Button(root, text="Browse File", command=ft_browse_file)
+        browse_button.grid(row=12, column=10, columnspan=2)
+
+        exit_button = tk.Button(root, text="Exit", command=ft_exit)
+        exit_button.grid(row=14, column=10, columnspan=2)
+
+        root.mainloop()
