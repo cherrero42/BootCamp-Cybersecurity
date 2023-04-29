@@ -1,0 +1,167 @@
+#!/usr/bin/env python
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    scorpion.py                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cherrero <cherrero@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/04/11 14:27:53 by cherrero          #+#    #+#              #
+#    Updated: 2023/04/22 01:33:27 by cherrero         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+import hashlib
+import pyotp
+import time
+import argparse
+import hashlib
+import base64
+from datetime import datetime
+import struct
+import hmac
+import qrcode 
+from cryptography.fernet import Fernet
+import tkinter as tk
+from tkinter import ttk
+import sys
+
+# read file
+def ft_read_file(file_path):
+    try:
+        with open(file_path, mode="r") as file:
+                file_data = file.read()
+        return file_data
+    except:
+        sys.exit("Error: File not found or not readable.")
+
+def ft_read_file_bin(file_path):
+    try:
+        with open(file_path, mode="rb") as file:
+                file_data = file.read()
+        return file_data
+    except:
+        sys.exit("Error: File not found or not readable.")
+
+# return true if key length is > 63 && HEX
+def ft_valid_key(str):
+    try:
+        int(str, 16)
+        if len(str) >= 64:
+            print("Key is valid")
+            return(True)
+        else:
+            return(False)
+    except:
+        return(False)
+
+def ft_encrypt_key(key):
+    cipher = Fernet(key)
+    encrypted = cipher.encrypt(key)
+    ft_save_encrypted_key(encrypted) 
+    print("Key was successfully saved in: " + key_file)
+
+def ft_decrypt_key(key):
+    dec = Fernet(key)
+    return dec.decrypt(vkey_bin)
+
+# generates a new one-time password
+def ft_generate_otp(key):
+    mytime = struct.pack(">Q", int(time.time() // 30))
+    key_bytes = bytearray.fromhex(key) 
+    hash = hmac.digest(key_bytes, mytime, hashlib.sha1)
+    offset = hash[19] & 15
+    code_otp = (struct.unpack('>I', hash[offset:offset + 4])[0] & 0x7FFFFFFF) % 1000000
+    return "{:06d}".format(code_otp)
+
+# saves the encrypted key to the file
+def ft_save_encrypted_key(key):
+    try:
+        with open(key_file, 'wb') as f:
+            f.write(key)
+    except:
+        sys.exit("Error: File not found or not writable.")
+
+# generates OTP code qr
+def ft_generate_qr(key_qr):
+
+    str = 'otpauth://totp/TOTP%20cherrero:cherrero%40student.42malaga.com?secret=' + key_qr + '&issuer=TOTP%20cherrero'
+    qrcode.make(str).save("qr.png")
+
+    root = tk.Tk()
+    root.title("TOTP QR")
+    root.geometry("800x800")
+    qr = tk.PhotoImage(file="qr.png")
+    label = ttk.Label(image=qr)
+    label.pack()
+    txt = tk.Label(root, text=key_qr)
+    txt.pack()
+    button = tk.Button(root, text="Refresh", command=ft_generate_otp_keys)
+    button.pack()
+    button = tk.Button(root, text="Exit", command=root.destroy)
+    button.pack()
+    root.mainloop()
+
+# generates a new OTP key
+def ft_generate_otp_keys():
+        print("[New OTP] ", datetime.now().strftime('%H:%M:%S'))
+        otp = ft_generate_otp(str(vkey_hex))
+        print("Time-based one-time password: \033[32m" + str(otp) + "\033[m")
+        totp = pyotp.TOTP(vkey_hex_base32)
+        print('Check correct output (PYOTP): \033[32m{}\033[m'.format(totp.now()) + "\n")
+
+def main():
+    global hex_file, key_file, vkey_bin, vkey_hex, vkey_hex_bin, vkey_hex_base32, vmaster_key
+
+    vmaster_key = b'WPg80eQgbBIjDdwc9TyHa-08pgn8gVhE7xquK8fhoBY='
+    hex_file = "./key.hex"
+    key_file = "./ft_otp.key"
+    pass_file = "./key.pass"
+
+    parser = argparse.ArgumentParser(description='One-Time Password generator')
+    parser.add_argument('-g', type=str, metavar="hex_file", help='hexadecimal key, at least 64 characters')
+    parser.add_argument('-k', type=str, metavar="otp_file", help='new temporary password')
+    parser.add_argument('-t', type=str, metavar="pass_file", help='new master password')
+    args = parser.parse_args()
+ 
+    if args.g:
+        hex_file = args.g
+    if args.k:
+        key_file = args.k
+    if args.t:
+        pass_file = args.t
+    try:
+        vkey_hex_bin = ft_read_file_bin(hex_file)
+        vkey_hex = ft_read_file(hex_file)
+        vkey_bin = ft_read_file_bin(key_file)
+    except:
+        print("Error: File not found.")
+
+    if args.k:
+        try:
+            vkey_hex_bin = ft_decrypt_key(vmaster_key)
+            if len(vkey_hex) % 2 != 0:
+                vkey_hex += '0'
+            padding = 8 - (len(vkey_hex) % 8)
+            vkey_hex += '0' * padding
+            vkey_hex_base32 = base64.b32encode(bytes.fromhex(vkey_hex)).decode('utf-8')
+            ft_generate_otp_keys()
+            ft_generate_qr(vkey_hex_base32)
+        except:
+            sys.exit("Error: Invalid key.")
+    elif args.g:
+        if ft_valid_key(vkey_hex):
+            ft_encrypt_key(vmaster_key)
+        else:
+            sys.exit(">Error: Invalid key.")
+    elif args.t:
+        master_key = Fernet.generate_key()
+        print("Master_key: ", master_key)
+        try:
+            with open(pass_file, 'wb') as f:
+                f.write(master_key)
+        except:
+            sys.exit("Error: File not found or not writable.")
+
+if __name__ == '__main__':
+    main()
