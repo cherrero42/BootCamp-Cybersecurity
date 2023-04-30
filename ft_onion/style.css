@@ -1,0 +1,102 @@
+/* Reset default styles */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f2f2f2;
+	margin: 0;
+	padding: 0;
+}
+
+/* Header styles */
+header {
+	background-color: #333;
+	color: #337ab7;
+	padding: 20px;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+nav li {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+}
+
+/* Main content styles */
+main {
+	margin: 20px;
+}
+
+section {
+	margin-bottom: 40px;
+}
+
+h1, h2, h3 {
+	margin: 0;
+}
+
+h1 {
+	font-size: 40px;
+	color: #FF6700;
+}
+
+h2 {
+	font-size: 30px;
+	color: #004E98;
+}
+
+p, ul, ol {
+	font-size: 18px;
+	line-height: 1.5;
+	color: #555;
+}
+
+ul, ol {
+	margin-left: 20px;
+}
+
+/* Footer styles */
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+}
+
+/* Link styles */
+a {
+	color: #337ab7;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #23527c;
+	text-decoration: underline;
+}
+
+/* Additional styles */
+#risks ul li {
+	color: #3A6EA5;
+}
+
+#protection ol li {
+	color: #3A6EA5;
+}
+
+#resources ul li {
+	color: #3A6EA5;
+}
+
+@media only screen and (max-width: 768px) {
+	nav li {
+		display: block;
+		margin: 10px 0;
+	}
+}
