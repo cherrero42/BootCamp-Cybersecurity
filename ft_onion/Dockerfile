@@ -1,4 +1,8 @@
 FROM nginx
+
+RUN apt-get update -y && apt upgrade -y
+RUN apt-get install tor openssh-server sudo vim -y
+
 RUN mkdir -p /usr/share/nginx/html
 RUN mkdir -p /etc/nginx/conf
 RUN mkdir -p /etc/ssh
@@ -7,5 +11,7 @@ COPY ./ft_onion/nginx/html /usr/share/nginx/html
 COPY ./ft_onion/nginx/conf /etc/nginx/conf
 COPY ./ft_onion/nginx/ssh /etc/ssh
 COPY ./ft_onion/nginx/tor /etc/tor
+
 EXPOSE 80 4242
+
 CMD ["nginx", "-g", "daemon off;"]
