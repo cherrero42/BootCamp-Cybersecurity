@@ -17,7 +17,7 @@ be accessible through a url of the type xxxxxxxxx.onion.
 
 • Access to the server via SSH on port 4242 is enabled.
 
-• No open any ports or set any firewall rules
+• No ports set in any firewall rules
 
 May 2023
 
