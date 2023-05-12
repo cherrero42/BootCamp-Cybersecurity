@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ft_blockchain 42</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		function addTransaction() {
+			var sender = document.getElementById("sender").value;
+			var recipient = document.getElementById("recipient").value;
+			var amount = document.getElementById("amount").value;
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/transactions/new", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					alert("Transaction added successfully!");
+					document.getElementById("sender").value = "";
+					document.getElementById("recipient").value = "";
+					document.getElementById("amount").value = "";
+				} else {
+					alert("Error adding transaction. Please try again.");
+				}
+			}
+		};
+			var data = JSON.stringify({"sender": sender, "recipient": recipient, "amount": amount});
+			xhr.send(data);
+		}
+
+
+		$(document).ready(function() {
+			$("#add-transaction").click(function() {
+				var sender = $("#sender").val();
+				var recipient = $("#recipient").val();
+				var amount = $("#amount").val();
+				$.post("/transactions/new", {
+					"sender": sender,
+					"recipient": recipient,
+					"amount": amount
+				}, function(data, status) {
+					alert(data.message);
+				});
+			});
+
+			$("#mine-block").click(function() {
+				$.get("/mine", function(data, status) {
+					alert(data.message);
+				});
+			});
+
+			$("#get-chain").click(function() {
+				$.get("/chain", function(data, status) {
+					alert(data.message); alert(JSON.stringify(data.chain));
+				});
+			});
+
+			$("#get-wait").click(function() {
+				$.get("/waiting", function(data, status) {
+					alert(data.message); alert(JSON.stringify(data.waiting));
+				});
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<h1>ft_blockchain 42</h1>
+	<form>
+		<label for="sender">Sender:</label>
+		<input type="text" id="sender" name="sender"><br>
+
+		<label for="recipient">Recipient:</label>
+		<input type="text" id="recipient" name="recipient"><br>
+
+		<label for="amount">Amount:</label>
+		<input type="number" id="amount" name="amount"><br>
+	</form>
+
+	<br>
+
+	<button onclick="addTransaction()">Add Transaction</button>
+	<input type="button" id="mine-block" value="Mine Block">
+	<input type="button" id="get-chain" value="Get Chain">
+	<input type="button" id="get-wait" value="Pending Transactions">
+
+</body>
+</html>
