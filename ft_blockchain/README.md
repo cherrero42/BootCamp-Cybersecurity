@@ -3,7 +3,7 @@
 ____________________________________
  Bootcamp Cybersecurity | 42 Málaga
  
-    f t _ b l o c k c h a i n
+ f t _ b l o c k c h a i n
 ____________________________________
 
 The workflow is to add different transactions to the current block and mine the block so
