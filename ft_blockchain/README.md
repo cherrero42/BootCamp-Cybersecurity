@@ -14,7 +14,7 @@ hash ending in 4242. The chain of blocks is not persistent, it's stored in
 the memory of the server but the server is not be connected to any specific database
 software. When developing mining, three things are done:
 
-    • Calculate proof of work
+• Calculate proof of work
 
 • Reward miners (one transaction)
 
