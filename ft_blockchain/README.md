@@ -23,6 +23,5 @@ requests on a text-based API:
     • [POST] /transactions/new : Post a new transaction to add to the next block.
     • [GET] /mine : Execute the proof of work and create a new block.
     • [GET] /chain : Returns information about the full blockchain (blocks, transactions, etc).
-´´´
  
 May 2023
