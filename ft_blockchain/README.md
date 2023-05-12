@@ -13,9 +13,12 @@ concatenated with the previous proof-of-work, matches the result of the SHA-256
 hash ending in 4242. The chain of blocks is not persistent, it's stored in
 the memory of the server but the server is not be connected to any specific database
 software. When developing mining, three things are done:
+
     • Calculate proof of work
-    • Reward miners (one transaction)
-    • Creation of the new block and add it to the chain
+
+• Reward miners (one transaction)
+
+• Creation of the new block and add it to the chain
 
 Once the blockchain is created, you can interact with it through different HTTP
 requests on a text-based API:
