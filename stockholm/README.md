@@ -6,7 +6,7 @@ _____________________________________
  S  t  o  c  k  h  o  l  m
 _____________________________________
 
-This program will encrypt files in your computer but act only on files with the extensions that were affected by Wannacry!
+This program encrypt files in your computer but act only on files with the extensions that were affected by Wannacry!
     [https://recursos.bps.com.es/files/796/67.pdf]
 The strong key with which the files are encrypted is created with cryptography module and is at least 16 characters long 
 and is save in the file [master.key].
