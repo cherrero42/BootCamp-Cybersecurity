@@ -15,7 +15,7 @@ Desde el 11 de abril hasta el 2 de junio formación en uno de los campos de la t
 |  Project Name | Subject                |       Score      |
 |:-------------:|:--------------- |:----------------:|
 |Python_Module_00| Get started with the Python language.    |   **100** / 100  |
-|   arachnida   | Web Scrapping % EXIF data       |   **125** / 100  |
+|   arachnida   | Web Scrapping & EXIF data       |   **125** / 100  |
  |    ft_otp     | Time-based_one-time_password creation   |   **125** / 100   |
 |   ft_onion    | Web server with Docker that shows a webpage on the Tor network   							    |   **125** / 100  |
 |ft_blockchain   | Proof-of-work algorithm            |   **100** / 100  |
