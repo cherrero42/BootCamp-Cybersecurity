@@ -25,9 +25,9 @@ A program called irondome that meets the following specifications:
 
 • The program detect changes in the entropy of the files.
 
-• The program should never exceed 100 MB of memory in use.
+• The program never exceed 100 MB of memory in use.
 
-All alerts should be reported in the `/var/log/irondome/irondome.log` file.
+All alerts are reported in the `/var/log/irondome/irondome.log` file.
 
 
 
