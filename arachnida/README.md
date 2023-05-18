@@ -6,8 +6,8 @@ _____________________________________
  a r a c h n i d a
 _____________________________________
 
-The spider program will allow you to extract all the images from a website, recursively, by providing a url as a parameter. 
-You will manage the following program options:
+The **spider** program allow you to extract all the images from a website, recursively, by providing a url as a parameter. 
+You manage the following program options:
 
 ```bash
   ./spider [-rlpS] URL
@@ -22,6 +22,14 @@ If not indicated, it will be 5.
 • Option -p [PATH] : indicates the path where the downloaded files will be saved.
 
 If not specified, ./data/ will be used.
+
+
+The **scorpion** program receive image files as parameters and to parse them for EXIF and other metadata, displaying them on the screen.
+The program is compatible with the same extensions that spider handles. It displays basic attributes such as the creation date, as well as EXIF data.
+
+```bash
+  ./scorpion file
+```
 
 May 2023
 
