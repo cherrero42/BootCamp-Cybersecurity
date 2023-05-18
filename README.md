@@ -24,4 +24,4 @@ Desde el 11 de abril hasta el 2 de junio formación en uno de los campos de la t
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
 
 <p></p>
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/50d3cf96e056e15c53046d4c6441a2576ab6517e/hollygraf.jpeg" /> </p>
+<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/60df19eaaae162c3ab6eedf09e3ee9c650649d81/holygraf.jpeg" /> </p>
