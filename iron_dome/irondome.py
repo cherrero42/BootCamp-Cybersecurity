@@ -7,24 +7,23 @@
 #    By: lguisado <lguisado@student.42.fr>          +#+  +:+       +#+         #
 #        cherrero <cherrero@student.42.fr>        +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 14:27:55                      #+#    #+#              #
-#    Updated: 2023/05/15 19:05:12                     ###   ########.fr        #
+#    Updated: 2023/05/18 19:05:12                     ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# irondome is a daemon that monitors a critical zone for file changes and anomalies.
 import sys
 try:
 	import os
 	import psutil
 	import shutil
 	import hashlib
-	import logging
 	import argparse
 	from pathlib import Path
 	from datetime import datetime, timedelta
 	import pandas as pd
 	import hashlib
 	import magic
-	import subprocess
 	import math
 	import string
 	import random
@@ -50,10 +49,11 @@ version = 'irondome 1.0.0'
 file_csv = "_files_info.csv"
 time_backup = 9999999999 # seconds
 
-limit_net_bytes = 70000000000  #  GB
+limit_net_bytes = 70000000000 # 70 G
 limit_percent_cpu = 60
 limit_percent_mem = 5
 limit_reads = 10
+limit_files = 10
 limit_disk_reads = 3
 file_entropy_dict = {}
 
@@ -113,12 +113,6 @@ def ft_get_hash(file):
 
 	return sha256.hexdigest()
 
-def ft_get_magic2(file):
-	'''Get magic of file'''
-	magic_output = subprocess.check_output(['file', '--mime-type', '--brief', file])
-	magic_hash = magic_output.decode().strip()
-	return magic_hash
-
 def ft_get_magic(file):
 	'''Get magic of file'''
 	mime = magic.Magic(mime=True)
@@ -171,10 +165,10 @@ def ft_check_activity_system():
 	#   we log a message indicating that intensive cryptographic activity has been detected.
 	global current_reads
 	if ft_get_total_cpu() > limit_percent_cpu:
-		ft_log_write("Alert CPU!: " + str(ft_get_total_cpu()) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+		ft_log_write("Intensive CPU usage detected: " + str(ft_get_total_cpu()) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 		logging.warning(f'Intensive CPU usage detected')
 	if ft_get_used_memory() > limit_percent_mem:
-		ft_log_write("Alert memory!: " + str(ft_get_used_memory()) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+		ft_log_write("Intensive memory usage detected: " + str(ft_get_used_memory()) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 		logging.warning(f'Intensive memory usage detected')
 
 	if (ft_get_disk_reads() - current_reads) > limit_disk_reads:
@@ -190,6 +184,7 @@ def ft_check_activity_system():
 
 			if 'openssl' in process_name or 'gnutls' in process_name or 'crypt' in process_name:
 				ft_log_write("Alert!: " + proc.info['name'] + " CPU: " + str(cpu_percent)  + " Memory: " + str(memory_percent) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+				ft_log_write('Intensive cryptographic activity detected in process' + process_name + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 				logging.warning(f'Intensive cryptographic activity detected in process {process_name}')
 		except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
 			pass
@@ -199,8 +194,10 @@ def ft_check_activity_system():
 	bytes_received = network_io.bytes_recv
 	if bytes_sent > limit_net_bytes or bytes_received > limit_net_bytes:
 		logging.warning(f'High network I/O activity detected')
+		ft_log_write('High network I/O activity detected' + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 	if psutil.Process(os.getpid()).memory_info().rss > 100000000:
 		logging.warning('Memory usage exceeded 100 MB')
+		ft_log_write('Memory usage exceeded 100 MB' + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 def ft_calculate_entropy(data):
 	'''Calculate entropy of data'''
@@ -236,7 +233,8 @@ def ft_is_encrypted_file(file_path):
 
 	return False
 
-def ft_valid_file(file, extensions=None):
+def ft_valid_file(file):
+	'''Check if the file has an extension to be observed'''
 	if not extensions:
 		return True
 	else:
@@ -260,7 +258,7 @@ def ft_detect_entropy_changes(directory_path, extensions=None):
 	file_entropy_dict_changes = {}
 	for root, dirs, files in os.walk(directory_path):
 		for file in files:
-			if not ft_valid_file(file, extensions):
+			if not ft_valid_file(file):
 				continue
 			file_path = os.path.join(root, file)
 			entropy = ft_get_file_entropy(file_path)
@@ -274,18 +272,39 @@ class FileEventHandler(FileSystemEventHandler):
 	'''Class to monitor files'''
 	def __init__(self):
 		self.read_count = 0
+		self.created_count = 0
+		self.deleted_count = 0
 		self.deleted_file = None
 		self.created_file = None
 
 	def on_deleted(self, event):
 		if not event.is_directory:
 			self.deleted_file = event.src_path
-			self.read_count += 1
+			if ft_valid_file(self.deleted_file):
+				ft_delete_name(self.deleted_file.split('/')[-1])
+				ft_log_write("Alert! File deleted: " + event.src_path + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+				self.deleted_count += 1
+				self.read_count += 1
+			if self.deleted_count > limit_files:
+				logging.warning(f'Intensive file deletion detected')
+				ft_log_write("Intensive file deletion detected")
+				self.deleted_count = 0
+				# ft_log_write("Alert! Disk read count for directory " + path_master + args.critical_zone + ": " + str(self.deleted_count) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 	def on_created(self, event):
 		if not event.is_directory:
 			self.created_file = event.src_path
-			self.read_count += 1
+			if ft_valid_file(self.deleted_file):
+				ft_log_write("Alert! File created: " + event.src_path + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+				self.created_count += 1
+				self.read_count += 1
+				if ft_is_encrypted_file(self.created_file):
+					ft_log_write("Alert! File possibly crypted: " + self.created_file + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+					logging.warning(f'Intensive cryptographic activity detected in file {self.created_file}')
+			if self.created_count > limit_files:
+				logging.warning(f'Intensive file creation detected')
+				ft_log_write('Intensive file creation detected' + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+				self.created_count = 0				
 
 	def on_modified(self, event):
 		# Increment the read count when a file or directory is modified
@@ -294,6 +313,7 @@ class FileEventHandler(FileSystemEventHandler):
 def ft_start_monitoring_files(path, extensions=None):
 	''''main monitoring process'''
 	global last_time_backup
+
 	event_handler = FileEventHandler()
 	observer = Observer()
 	observer.schedule(event_handler, path, recursive=False)
@@ -303,7 +323,7 @@ def ft_start_monitoring_files(path, extensions=None):
 		while True:
 			if last_time_backup + timedelta(seconds=time_backup) < datetime.now():
 				for file in os.listdir(path_master + args.critical_zone):
-					if not ft_valid_file(file, extensions):
+					if not ft_valid_file(file):
 						continue
 					ft_backup(file)
 				last_time_backup = datetime.now()
@@ -311,20 +331,12 @@ def ft_start_monitoring_files(path, extensions=None):
 			ft_check_files(path_master + args.critical_zone, args.extensions)
 			ft_check_activity_system()
 			# Monitor disk read usage every 1 seconds
-			time.sleep(0.00001)
+			time.sleep(1)
 			if event_handler.read_count > limit_reads:
 				ft_log_write("Alert! Disk read count for directory " + path_master + args.critical_zone + ": " + str(event_handler.read_count) + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-			if event_handler.deleted_file:
-				ft_log_write("Alert! File deleted: " + event_handler.deleted_file + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-				ft_delete_name(event_handler.deleted_file.split('/')[-1])
-			if event_handler.created_file:
-				ft_log_write("Alert! File created: " + event_handler.created_file + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-				if ft_is_encrypted_file(event_handler.created_file):
-					ft_log_write("Alert! File possibly crypted: " + event_handler.created_file + " - " + datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-					logging.warning(f'Intensive cryptographic activity detected in file {event_handler.created_file}')
 			event_handler.read_count = 0
-			event_handler.deleted_file = None
-			event_handler.created_file = None
+			event_handler.deleted_count = 0
+			event_handler.created_count = 0
 	except KeyboardInterrupt:
 		observer.stop()
 	except Exception:
@@ -346,7 +358,7 @@ def ft_check_files(critical_zone, extensions=None):
 			# empty DataFrame
 			df = pd.DataFrame(columns=["File", "Modif_date", "Hash", "Magic"])
 		for file in os.listdir(critical_zone):
-			if not ft_valid_file(file, extensions):
+			if not ft_valid_file(file):
 				continue
 			dir = os.path.join(critical_zone, file)
 			if os.path.isfile(dir):
@@ -405,7 +417,7 @@ def main():
 
 
 if __name__ == '__main__':
-	global last_time_backup, current_reads
+	global last_time_backup, current_reads, extensions
 
 	parser = argparse.ArgumentParser(description='Monitor a critical zone for file changes and anomalies')
 	parser.add_argument('critical_zone', help='Path to the critical zone to monitor', default='alert_zone')
@@ -459,15 +471,17 @@ if __name__ == '__main__':
 		
 	if args.extensions is None:
 		ft_log_write("All extensions are observed")
+		extensions = None
 	else:
 		args.extensions = args.extensions.split(',') if args.extensions else None
 		ft_log_write("Extensions observed: " + str(args.extensions))
+		extensions = args.extensions
 
 	if args.backup_time is not None:
 		time_backup = args.backup_time
 		ft_log_write("Backup time: " + str(time_backup) + " seconds")
 
-	logging.basicConfig(filename=log_file, level=logging.INFO)
+	# logging.basicConfig(filename=log_file, level=logging.INFO)
 
 	current_reads = ft_get_disk_reads()
 
