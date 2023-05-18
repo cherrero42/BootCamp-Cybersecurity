@@ -10,8 +10,10 @@ Desde el 11 de abril hasta el 2 de junio formación en uno de los campos de la t
 
 # Progress
 
-|  Proyect Name | Subject                |       Score      |
-|:-------------:|:--------------------------- |:----------------:|
+<p></p>
+
+|  Project Name | Subject                |       Score      |
+|:-------------:|:--------------- |:----------------:|
 |Python_Module_00| Get started with the Python language.    |   **100** / 100  |
 |   arachnida   | Web Scrapping % EXIF data       |   **125** / 100  |
  |    ft_otp     | Time-based_one-time_password creation   |   **125** / 100   |
@@ -21,3 +23,5 @@ Desde el 11 de abril hasta el 2 de junio formación en uno de los campos de la t
 |   stockholm   | Program that simulates the WannaCry ransomware   |   **100** / 100  |
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
 
+<p></p>
+<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/50d3cf96e056e15c53046d4c6441a2576ab6517e/hollygraf.jpeg" /> </p>
