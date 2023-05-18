@@ -32,3 +32,5 @@ All alerts should be reported in the `/var/log/irondome/irondome.log` file.
 
 
 May 2023
+
+<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/0b9187439c402644287d6f398b27825b337624e7/iron_dome/iron_dome.jpeg" /> </p>
