@@ -11,7 +11,7 @@ This program encrypt files in your computer but act only on files with the exten
 The strong key with which the files are encrypted is created with cryptography module and is at least 16 characters long 
 and is save in the file [master.key].
 
-The program have this arguments:
+The program has this arguments:
 
     • the option "--help" or "-h" to display help.
     
@@ -27,9 +27,9 @@ The program have this arguments:
     
     • the option "–log" to produce a log file [_stockholm.log].
     
-The program will show each encrypted file during the process unless option is indicated "–silent" or "-s".
+The program shows each encrypted file during the process unless option is indicated "–silent" or "-s".
 
-The program will rename all the files in the mentioned folder adding the ".ft" extension.
+The program renames all the files in the mentioned folder adding the ".ft" extension.
 If they already have this extension, they will not be renamed.
 
 Be carefull, the infection folder is in the user’s HOME directory!!
