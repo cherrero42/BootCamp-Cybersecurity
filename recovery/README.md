@@ -10,7 +10,9 @@ A program that extracts the following artifacts on a given time lapse:
 
 • Registry branches changes date (CurrentVersionRun)
 
-• Recent used/opened files.
+• Recent used/opened files
+
+• Temporal files
 
 • Installed programs
 
