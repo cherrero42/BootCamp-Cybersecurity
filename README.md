@@ -22,6 +22,7 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 |    tsunami    | Buffer & stack overflows on Windows XP         |   **100** / 100  |
 |   stockholm   | Program that simulates the WannaCry ransomware   |   **100** / 100  |
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
+|  recovery|  Recovery system info on Windows 10 |   **100** / 100  |
 
 <p></p>
 <p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/60df19eaaae162c3ab6eedf09e3ee9c650649d81/holygraf.jpeg" /> </p>
