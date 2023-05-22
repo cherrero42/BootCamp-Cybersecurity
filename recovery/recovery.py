@@ -7,7 +7,7 @@
 #    By: cherrero <cherrero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 13:09:23 by cherrero          #+#    #+#              #
-#    Updated: 2023/05/21 21:19:50 by cherrero         ###   ########.fr        #
+#    Updated: 2023/05/21 21:21:51 by cherrero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ import win32evtlog
 import tempfile
 import wmi
 
-def extract_registry_changes(start_time, end_time):
+def ft_registry_changes(start_time, end_time):
     '''Extract the registry changes within the given time lapse'''
     key_path = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
     key = winreg.HKEY_LOCAL_MACHINE
@@ -32,14 +32,14 @@ def extract_registry_changes(start_time, end_time):
         registry_key = winreg.OpenKey(key, key_path, 0, winreg.KEY_READ)
         last_write_time = winreg.QueryInfoKey(registry_key)[2]
         if last_write_time/10000000 - 11644473600 > start_time.timestamp() and last_write_time/10000000 - 11644473600 < end_time.timestamp():
-            print("\nRegistry branch 'CurrentVersionRun' was modified in the time lapse.")
+            print("\n__Registry branch 'CurrentVersionRun' was modified in the time lapse.")
             winreg.CloseKey(registry_key)
 
-        print(f"\nLast modification date of 'CurrentVersionRun' registry branch: {datetimev.fromtimestamp(last_write_time/10000000 - 11644473600)}")
+        print(f"\n__Last modification date of 'CurrentVersionRun' registry branch: {datetimev.fromtimestamp(last_write_time/10000000 - 11644473600)}")
     except WindowsError:
         print("\nError accessing the 'CurrentVersionRun' registry branch.")
 
-def extract_recent_files_reg(start_time, end_time):
+def ft_ft_extract_recent_files_reg(start_time, end_time):
     '''Extract the recent files within the given time lapse from registry'''
     key_path = r"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs"
     key = winreg.HKEY_CURRENT_USER
@@ -49,7 +49,7 @@ def extract_recent_files_reg(start_time, end_time):
         num_entries = winreg.QueryInfoKey(registry_key)[1]
 
         print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-        print("\n\nRecent files:")
+        print("\n__Recent files:")
         for i in range(num_entries):
             value_name = winreg.EnumValue(registry_key, i)[0]
 
@@ -67,13 +67,13 @@ def extract_recent_files_reg(start_time, end_time):
     except WindowsError:
         print("\nError accessing the recent files registry key.")
 
-def extract_recent_files(start_time, end_time):
+def ft_extract_recent_files(start_time, end_time):
     '''Extract the recent files within the given time lapse'''
     recent_folder_path = os.path.expanduser("~\\AppData\\Roaming\\Microsoft\\Windows\\Recent")
   
     try:
         print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-        print("\n\nRecent files:")
+        print("\n__Recent files:")
         for filename in os.listdir(recent_folder_path):
             file_path = os.path.join(recent_folder_path, filename)
             modified_time = datetimev.fromtimestamp(os.path.getmtime(file_path))
@@ -84,7 +84,7 @@ def extract_recent_files(start_time, end_time):
         print("\nError accessing the Recent folder.\n")
 
 
-def extract_temporal_files(start_time, end_time):
+def ft_extract_temporal_files(start_time, end_time):
     '''Extract temporal files within the given time lapse'''
 
     temporal_files = []
@@ -107,14 +107,14 @@ def extract_temporal_files(start_time, end_time):
 
     return temporal_files
 
-def extract_installed_programs(start_time, end_time):
+def ft_extract_installed_programs(start_time, end_time):
     '''Extract the installed programs within the given time lapse'''
 
     # Define the registry key path for installed programs
     registry_key_path = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 
     print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-    print("\n\nInstalled programs in the given time lapse:\n")
+    print("\n\n__Installed programs in the given time lapse:\n")
     try:
         # Open the registry key for reading
         registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, registry_key_path, 0, winreg.KEY_READ)
@@ -157,13 +157,13 @@ def extract_installed_programs(start_time, end_time):
     except OSError as e:
         print(f"Error accessing the registry: {e}")
 
-def extract_running_processes(start_time, end_time):
+def ft_extract_running_processes(start_time, end_time):
     '''Extract the running processes within the given time lapse'''
 
     running_processes = []
 
     print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-    print("\n\nRunning processes in the given time lapse:\n")
+    print("\n\n__Running processes in the given time lapse:\n")
     try:
         # Iterate through all running processes
         for process in psutil.process_iter(['pid', 'name', 'create_time']):
@@ -184,11 +184,11 @@ def extract_running_processes(start_time, end_time):
 
     return running_processes
 
-def extract_browser_history(start_time, end_time):
+def ft_extract_browser_history(start_time, end_time):
     '''Extract the web browser history within the given time lapse'''
 
     print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-    print("\n\nBrowser history:" + str(start_time) + " - " + str(end_time))
+    print("\n\n__Browser history:" + str(start_time) + " - " + str(end_time))
     # Google Chrome history file path
     chrome_history_path = os.path.expanduser("~") + r"\AppData\Local\Google\Chrome\User Data\Default\History"
     # Mozilla Firefox history file path
@@ -196,9 +196,9 @@ def extract_browser_history(start_time, end_time):
 
     # Extract history from Google Chrome
     if os.path.isfile(chrome_history_path):
-        chrome_history = extract_chrome_history(chrome_history_path, start_time, end_time)
-        print("\nGoogle Chrome History:")
-        print_history(chrome_history)
+        chrome_history = ft_extract_chrome_history(chrome_history_path, start_time, end_time)
+        print("\n__Google Chrome History:")
+        ft_print_history(chrome_history)
 
     # Extract history from Mozilla Firefox
     if os.path.isdir(firefox_history_path):
@@ -207,13 +207,13 @@ def extract_browser_history(start_time, end_time):
             profile_path = os.path.join(firefox_history_path, profile)
             places_file_path = os.path.join(profile_path, "places.sqlite")
             if os.path.isfile(places_file_path):
-                firefox_history = extract_firefox_history(places_file_path, start_time, end_time)
-                print("\nMozilla Firefox History:")
-                print_history(firefox_history)
+                firefox_history = ft_extract_firefox_history(places_file_path, start_time, end_time)
+                print("\n__Mozilla Firefox History:")
+                ft_print_history(firefox_history)
 
-    extract_edge_browser_history(start_time, end_time)
+    ft_extract_edge_browser_history(start_time, end_time)
 
-def extract_chrome_history(history_path, start_time, end_time):
+def ft_extract_chrome_history(history_path, start_time, end_time):
     '''Extract the Google Chrome history within the given time lapse'''
 
     connection = sqlite3.connect(history_path)
@@ -237,7 +237,7 @@ def extract_chrome_history(history_path, start_time, end_time):
 
     return history
 
-def extract_firefox_history(history_path, start_time, end_time):
+def ft_extract_firefox_history(history_path, start_time, end_time):
     '''Extract the Mozilla Firefox history within the given time lapse'''
 
     connection = sqlite3.connect(history_path)
@@ -262,7 +262,7 @@ def extract_firefox_history(history_path, start_time, end_time):
 
     return history
 
-def extract_edge_browser_history(start_time, end_time):
+def ft_extract_edge_browser_history(start_time, end_time):
     '''Extract the Microsoft Edge browser history within the given time lapse'''
     history_db_path = os.path.expanduser("~") + r"\AppData\Local\Microsoft\Edge\User Data\Default\History"
 
@@ -290,7 +290,7 @@ def extract_edge_browser_history(start_time, end_time):
     except sqlite3.Error as e:
         print("\nError accessing Edge browser history database:", e)
 
-def print_history(history):
+def ft_print_history(history):
     '''Print the web browser history'''
 
     for entry in history:
@@ -302,46 +302,7 @@ def print_history(history):
         print(f"Visit Time: {visit_time}")
         print()
 
-
-def extract_connected_devices(start_time, end_time):
-    '''Extract the connected devices info within the given time lapse'''
-
-    connected_devices = []
-
-    try:
-        print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-        print("\n\nConnected devices:")
-        # Get the active network connections
-        connections = psutil.net_connections()
-
-        # Get the system boot time
-        boot_time = datetime.datetime.fromtimestamp(psutil.boot_time())
-
-        # Iterate through the active connections and extract the connected devices within the given time lapse
-        for conn in connections:
-            create_time = boot_time + datetime.timedelta(seconds=conn.pid)
-
-            # Check if the connection creation time is within the given time lapse
-            if start_time <= create_time <= end_time:
-                remote_address = conn.raddr
-                remote_ip = remote_address.ip if remote_address.ip else "Unknown"
-                remote_port = remote_address.port if remote_address.port else "Unknown"
-
-                device = {
-                    'local_address': conn.laddr.ip,
-                    'local_port': conn.laddr.port,
-                    'remote_address': remote_ip,
-                    'remote_port': remote_port,
-                    'create_time': create_time
-                }
-                connected_devices.append(device)
-
-    except psutil.Error as e:
-        print(f"Error accessing connected devices: {e}")
-
-    return connected_devices
-
-def extract_connected_devices():
+def ft_extract_connected_devices():
     '''Extract the connected devices info'''
     c = wmi.WMI()
 
@@ -354,7 +315,7 @@ def extract_connected_devices():
             print(f"Manufacturer: {device.Manufacturer}")
             print()
 
-def extract_event_logs(start_time, end_time):
+def ft_extract_event_logs(start_time, end_time):
     '''Extract the event logs within the given time lapse'''
 
     event_logs = []
@@ -421,7 +382,7 @@ if __name__ == "__main__":
             start_time = datetime.datetime.strptime(args.start_date, '%Y-%m-%d')
             end_time = datetime.datetime.now()
         else:
-            start_time = datetime.datetime.now() - datetime.timedelta(hours=1)
+            start_time = datetime.datetime.now() - datetime.timedelta(hours=4)
             end_time = datetime.datetime.now()
     except ValueError:
         print("\nInvalid date format. Please use YYYY-MM-DD format.")
@@ -430,44 +391,41 @@ if __name__ == "__main__":
     print("\nShow recovery info from: " + str(start_time) + " to " + str(end_time))
 
     # Extract the registry changes within the given time lapse
-    extract_registry_changes(start_time, end_time)
-
+    ft_registry_changes(start_time, end_time)
 
     # Extract the recent files within the given time lapse in registry 
-    # extract_recent_files_reg(start_time, end_time)
+    # ft_ft_extract_recent_files_reg(start_time, end_time)
 
     # Extract the recent files within the given time lapse
-    extract_recent_files(start_time, end_time)
+    ft_extract_recent_files(start_time, end_time)
 
     # Extract the temporal files within the given time lapse
-    temporal_files = extract_temporal_files(start_time, end_time)
+    temporal_files = ft_extract_temporal_files(start_time, end_time)
 
     # Print the temporal files
     print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
-    print("\n\nTemporal files:")
+    print("\n__Temporal files:")
     for file in temporal_files:
         print(file)
 
     # Extract the installed programs within the given time lapse
-    extract_installed_programs(start_time, end_time)
+    ft_extract_installed_programs(start_time, end_time)
 
     # Extract the running processes within the given time lapse
-    running_processes = extract_running_processes(start_time, end_time)
+    running_processes = ft_extract_running_processes(start_time, end_time)
 
     # Print the list of running processes
     for process in running_processes:
         print(f"Process: {process['name']}, PID: {process['pid']}, Creation Time: {process['create_time']}")
 
     # Extract the web browser history within the given time lapse
-    extract_browser_history(start_time, end_time)
-
+    ft_extract_browser_history(start_time, end_time)
 
     # Extract the connected devices    
-    extract_connected_devices()
+    ft_extract_connected_devices()
 
     # Extract the event logs within the given time lapse
-    event_logs = extract_event_logs(start_time, end_time)
-
+    event_logs = ft_extract_event_logs(start_time, end_time)
     # Print the event logs
     for log in event_logs:
         print(f"Time Generated: {log['TimeGenerated']}")
@@ -475,12 +433,10 @@ if __name__ == "__main__":
         print(f"Event ID: {log['EventID']}")
         print(f"Event Type: {log['EventType']}")
         print(f"Event Category: {log['EventCategory']}")
-        # print(f"Strings: {', '.join(log['Strings'])}")
-            # Check if 'Strings' is iterable before using 'join'
+        # Check if 'Strings' is iterable before using 'join'
         if isinstance(log['Strings'], list):
             print(f"Strings: {', '.join(log['Strings'])}")
         else:
             print(f"Strings: {log['Strings']}")
-
         print()
     
