@@ -2,6 +2,7 @@
 
 _____________________________________
  Bootcamp Cybersecurity | 42 Málaga
+ 
        r  e  c  o  v  e  r  y
 _____________________________________
 
@@ -18,7 +19,7 @@ A program that extracts the following artifacts on a given time lapse:
 
 • Processes on execution
 
-• Web browser history
+• Web browser history (Edge, Chrome, Firefox)
 
 • Connected devices
 
