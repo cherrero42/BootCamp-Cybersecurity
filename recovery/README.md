@@ -29,3 +29,6 @@ If the user doesnt give your program a time range it should fall back to a defau
 
 
 May 2023
+
+
+<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/cc7a83f9a8ee793d6aac9d490f1f082f881a850b/recovery/recovery.jpeg" /> </p>
