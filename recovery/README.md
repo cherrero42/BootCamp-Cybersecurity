@@ -25,7 +25,7 @@ A program that extracts the following artifacts on a given time lapse:
 
 • Events logs
 
-If the user doesnt give your program a time range it should fall back to a default value, for ex: last 24h, last week, last month...
+If the user does not give the program a time range, it reverts to a default value, in this case, last 4 hours
 
 
 May 2023
