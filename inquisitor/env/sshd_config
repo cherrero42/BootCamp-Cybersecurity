@@ -1,0 +1,8 @@
+Port 4141
+
+# Authentication:
+LoginGraceTime 2m
+PermitRootLogin yes
+MaxAuthTries 5
+StrictModes no
+PasswordAuthentication yes
