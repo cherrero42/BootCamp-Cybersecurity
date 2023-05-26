@@ -1,17 +1,6 @@
 version: "3.9"
 
 services:
-    # ftp_server2:
-    #     container_name: ftp_server2
-    #     image: panubo/vsftpd:v1.0.0
-    #     ports:
-    #         - "22:21"
-    #         # - "4559-4564:4559-4564"
-    #     environment:
-    #         - FTP_USER=ftp
-    #         - FTP_PASSWORD=ftp
-    #     volumes:
-    #         - ./ftp_server:/srv
 
     ftp_server:
         container_name: ftp_server
@@ -23,39 +12,23 @@ services:
             - FTP_PASS=ftp_pass
         volumes:
             - ./ftp_server:/home/vsftpd
-            # # - ./ftpd.conf:/etc/vsftpd/vsftpd.conf
-            # - ./ftpd:/etc/vsftpd
-        # restart: unless-stopped
+        restart: always
 
     user:
         container_name: user
-        # image: alpine:latest
-        # ports:
-        #     - "5800:5800"
         build:
             context: .
-            dockerfile: Dockerfile_user
+            dockerfile: user.Dockerfile
         volumes:
             - ./home:/home:rw
         ports:
             - "4141:4141"
 
-    # client:
-    #     container_name: client
-    #     image: jlesage/filezilla:v1.35.3
-    #     ports:
-    #         - "5800:5800"
-    #     volumes:
-    #         - ./filezilla:/storage:rw
-
     poison:
         container_name: poison
         build:
             context: .
-            dockerfile: Dockerfile_poison
-        # image: wshark
-        # ports:
-        #     - "3000:3000"
+            dockerfile: poison.Dockerfile
         cap_add:
             - NET_RAW
             - NET_ADMIN

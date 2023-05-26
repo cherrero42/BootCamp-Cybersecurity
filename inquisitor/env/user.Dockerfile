@@ -3,13 +3,13 @@ FROM alpine:latest
 RUN set -e -x && apk update && apk add openssh-server lftp
 
 COPY sshd_config /etc/ssh/sshd_config
-COPY ssh.sh /ssh.sh
+COPY entrypoint.sh /entrypoint.sh
 
-RUN set -e -x &&  chmod +x /ssh.sh && \
+RUN set -e -x &&  chmod +x /entrypoint.sh && \
     echo "root:root" | chpasswd
 
 WORKDIR /usr/src/
 
 EXPOSE 4141
 
-CMD ["sh", "/ssh.sh"]
+CMD ["sh", "/entrypoint.sh"]
