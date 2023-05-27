@@ -22,6 +22,7 @@ services:
         build:
             context: .
             dockerfile: user.Dockerfile
+        image: user.inquisitor
         volumes:
             - ./home:/home:rw
         ports:
@@ -34,6 +35,7 @@ services:
         build:
             context: .
             dockerfile: poison.Dockerfile
+        image: poison.inquisitor
         cap_add:
             - NET_RAW
             - NET_ADMIN
