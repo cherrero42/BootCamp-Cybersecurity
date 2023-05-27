@@ -1,19 +1,22 @@
 version: "3.9"
 
 services:
-
+ 
     ftp_server:
         container_name: ftp_server
-        image: fauria/vsftpd
+        image: panubo/vsftpd:v1.0.0
         ports:
             - "21:21"
         environment:
-            - FTP_USER=ftp_user
-            - FTP_PASS=ftp_pass
+            - FTP_USER=ftpuser
+            - FTP_PASSWORD=ftppass
         volumes:
-            - ./ftp_server:/home/vsftpd
-        restart: always
-
+            - ./ftp_server/vsftpd:/home/vsftpd
+            - ./ftp_server/log:/var/log/vsftpd
+            - ./ftp_server/server:/srv
+        networks:
+            - inquisitor_network
+    
     user:
         container_name: user
         build:
@@ -23,6 +26,8 @@ services:
             - ./home:/home:rw
         ports:
             - "4141:4141"
+        networks:
+            - inquisitor_network
 
     poison:
         container_name: poison
@@ -36,3 +41,8 @@ services:
             - ./src:/usr/src
         ports:
             - "4242:4141"
+        networks:
+            - inquisitor_network
+
+networks:
+    inquisitor_network:
