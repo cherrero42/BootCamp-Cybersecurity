@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # ft_otp
 
 _____________________________________
@@ -17,4 +18,4 @@ ft_otp.key, which will be encrypted.
 May 2023
 
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/5040584ebd5ede1f89d2c9e7ae9c37d49e13b7a0/ft_otp/ft_otp.jpeg" /> </p>
+<p align="center"> <img src="./ft_otp.jpeg" alt="image" width="456" /> </p>
