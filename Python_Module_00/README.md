@@ -11,7 +11,7 @@ _____________________________________
 
 
 <p align="center">
-  <img src="./Python_Module_00.jpeg" alt="image" width="256"/>
+  <img src="./Python_Module_00.jpeg" alt="image" width="456"/>
 </p>
 
 
