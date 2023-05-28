@@ -27,5 +27,5 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 <p></p>
 
 <p align="center">
-  <img src="./holygraf.jpeg" alt="image" width="456"/>
+  <img src="./holygraf.jpeg" alt="image"/>
 </p>
