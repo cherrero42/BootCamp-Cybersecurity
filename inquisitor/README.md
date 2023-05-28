@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # inquisitor
 
 _____________________________________
@@ -23,5 +24,9 @@ A program called inquisitor with the following characteristics:
 
 • The program never stop unexpectedly and will handle all input errors
 
+ <p align="center">
+  <img src="./inquisitor.jpeg" alt="image" width="456"/>
+</p>
+ 
 
 May 2023
