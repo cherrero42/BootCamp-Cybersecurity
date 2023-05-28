@@ -9,8 +9,7 @@ _____________________________________
 
 A web server with Docker that shows a webpage on the Tor network.
 
-•The service must have a static web page: a single index.html file. The page will
-be accessible through a url of the type xxxxxxxxx.onion.
+• The service must have a static web page: a single index.html file. The page is accessible through a url of the type xxxxxxxxx.onion
 
 • Nginx is used to configure the web server. 
 
@@ -20,7 +19,7 @@ be accessible through a url of the type xxxxxxxxx.onion.
 
 • No ports set in any firewall rules
 
-May 2023
+Apr 2023
 
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/5040584ebd5ede1f89d2c9e7ae9c37d49e13b7a0/ft_onion/ft_onion.jpeg" /> </p>
+<p align="center"> <img src="ft_onion.jpeg"  alt="image" width="456" /> </p>
