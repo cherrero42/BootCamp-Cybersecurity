@@ -14,7 +14,7 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 
 |  Project Name | Subject                |       Score      |
 |:-------------:|:--------------- |:----------------:|
-|Python_Module_00| Get started with the Python language.    |   **100** / 100  |
+|Python_Module_00| Get started with the Python language    |   **100** / 100  |
 |   arachnida   | Web Scrapping & EXIF data       |   **125** / 100  |
  |    ft_otp     | Time-based_one-time_password creation   |   **125** / 100   |
 |   ft_onion    | Web server with Docker that shows a webpage on the Tor network   							    |   **125** / 100  |
@@ -25,4 +25,7 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 |  recovery|  Recovery system info on Windows 10 |   **100** / 100  |
 
 <p></p>
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/60df19eaaae162c3ab6eedf09e3ee9c650649d81/holygraf.jpeg" /> </p>
+
+<p align="center">
+  <img src="./holygraf.jpeg" alt="image" width="456"/>
+</p>
