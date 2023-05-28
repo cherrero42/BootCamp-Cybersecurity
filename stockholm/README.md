@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # Stockholm
 
 _____________________________________
@@ -37,4 +38,4 @@ Be carefull, the infection folder is in the user’s HOME directory!!
 May 2023
 
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/fb6ed97dc3e25d7f6f3ab007740ab83603551deb/stockholm/stockholm.jpeg" /> </p>
+<p align="center"> <img src="./stockholm.jpeg alt="image" width="456"" /> </p>
