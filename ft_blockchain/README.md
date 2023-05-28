@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # ft_blockchain
 
 ____________________________________
@@ -29,4 +30,4 @@ requests on a text-based API:
 ```
 May 2023
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/89e546c4b7d606ef46e9c1b8b3c02cdc75107c61/ft_blockchain/ft_blockchain.jpeg" /> </p>
+<p align="center"> <img src="./ft_blockchain.jpeg" alt="image" width="456" /> </p>
