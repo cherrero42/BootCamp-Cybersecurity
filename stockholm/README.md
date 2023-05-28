@@ -38,4 +38,4 @@ Be carefull, the infection folder is in the user’s HOME directory!!
 May 2023
 
 
-<p align="center"> <img src="./stockholm.jpeg alt="image" width="456"" /> </p>
+<p align="center"> <img src="./stockholm.jpeg" alt="image" width="456"" /> </p>
