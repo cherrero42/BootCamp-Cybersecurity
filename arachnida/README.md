@@ -35,4 +35,4 @@ The program is compatible with the same extensions that spider handles. It displ
 May 2023
 
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/ea6132dc46f8dd15c875586b16e0b9494aa0d320/arachnida/arachnida.jpeg" /> </p>
+<p align="center"> <img src="./arachnida.jpeg" alt="image" width="456" /> </p>
