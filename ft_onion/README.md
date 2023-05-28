@@ -1,3 +1,4 @@
+[![GitHub release](https://img.shields.io/github/release/docker/compose.svg?style=flat-square)](https://github.com/docker/compose/releases/latest)
 # ft_onion
 
 _____________________________________
