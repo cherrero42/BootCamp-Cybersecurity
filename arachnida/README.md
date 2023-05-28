@@ -22,7 +22,7 @@ If not indicated, it will be 5.
 
 • Option -p [PATH] : indicates the path where the downloaded files will be saved.
 
-If not specified, ./data/ will be used.
+If not specified, ```./data/``` will be used.
 
 
 The **scorpion** program receive image files as parameters and to parse them for EXIF and other metadata, displaying them on the screen.
