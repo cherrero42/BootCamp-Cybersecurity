@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # recovery
 
 _____________________________________
@@ -31,4 +32,4 @@ If the user does not give the program a time range, it reverts to a default valu
 May 2023
 
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/cc7a83f9a8ee793d6aac9d490f1f082f881a850b/recovery/recovery.jpeg" /> </p>
+<p align="center"> <img src="./recovery.jpeg" alt="image" width="456"/> </p>
