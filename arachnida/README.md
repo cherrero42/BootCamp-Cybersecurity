@@ -32,7 +32,7 @@ The program is compatible with the same extensions that spider handles. It displ
   ./scorpion file
 ```
 
-May 2023
+Apr 2023
 
 
 <p align="center"> <img src="./arachnida.jpeg" alt="image" width="456" /> </p>
