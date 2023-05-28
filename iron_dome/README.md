@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # iron_dome
 
 _____________________________________
@@ -33,4 +34,4 @@ All alerts are reported in the `/var/log/irondome/irondome.log` file.
 
 May 2023
 
-<p align="center"> <img src="https://github.com/cherrero42/BootCamp-Cybersecurity/blob/0b9187439c402644287d6f398b27825b337624e7/iron_dome/iron_dome.jpeg" /> </p>
+<p align="center"> <img src="./iron_dome.jpeg" alt="image" width="456" /> </p>
