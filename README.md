@@ -23,6 +23,7 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 |   stockholm   | Program that simulates the WannaCry ransomware   |   **100** / 100  |
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
 |  recovery|  Recovery system info on Windows 10 |   **100** / 100  |
+|  inquisitor|  ARP spoofing  |   **100** / 100  |
 
 <p></p>
 
