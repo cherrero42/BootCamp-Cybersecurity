@@ -18,13 +18,14 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 |   arachnida   | Web Scrapping & EXIF data       |   **125** / 100  |
 |   coRSAir   | Cryptography & Vulnerable Ciphers    |   **100** / 100  |
  |    ft_otp     | Time-based_one-time_password creation   |   **125** / 100   |
-|   ft_onion    | Web server with Docker that shows a webpage on the Tor network   							    |   **125** / 100  |
+|   ft_onion    | Web server with Docker that shows a webpage on the Tor network     |   **125** / 100  |
 |ft_blockchain   | Proof-of-work algorithm            |   **100** / 100  |
 |    tsunami    | Buffer & stack overflows on Windows XP         |   **100** / 100  |
 |   stockholm   | Program that simulates the WannaCry ransomware   |   **100** / 100  |
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
 |  recovery|  Recovery system info on Windows 10 |   **100** / 100  |
 |  inquisitor|  ARP spoofing  |   **100** / 100  |
+|  vaccine| SQL injection  |   **100** / 100  |
 
 <p></p>
 
