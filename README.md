@@ -16,6 +16,7 @@ Over the course of 8 weeks, I was able to learn competencies in areas such as cr
 |:-------------:|:--------------- |:----------------:|
 |Python_Module_00| Get started with the Python language    |   **100** / 100  |
 |   arachnida   | Web Scrapping & EXIF data       |   **125** / 100  |
+|   coRSAir   | Cryptography & Vulnerable Ciphers    |   **100** / 100  |
  |    ft_otp     | Time-based_one-time_password creation   |   **125** / 100   |
 |   ft_onion    | Web server with Docker that shows a webpage on the Tor network   							    |   **125** / 100  |
 |ft_blockchain   | Proof-of-work algorithm            |   **100** / 100  |
