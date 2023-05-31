@@ -1,0 +1,4 @@
+beautifulsoup4==4.11.1
+Pillow==9.4.0
+Protego==0.1.16
+requests==2.28.1
