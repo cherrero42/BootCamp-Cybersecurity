@@ -6,7 +6,7 @@
 /*   By: cherrero <cherrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:27:53 by cherrero          #+#    #+#             */
-/*   Updated: 2023/05/30 18:18:44 by cherrero         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:25:45 by cherrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,14 @@ int main(int argc, char **argv)
 		printf("\x1b[32mFile successfully decrypted: \n%s\x1b[0m\n", sout);
 		close(fd);
 		}
-	// BIO_free(fp1);
-	// BIO_free(fp2);
-	// RSA_free(rsa1);
-	// RSA_free(rsa2);
-	// RSA_free(private);
-	// BN_CTX_free(ctx);
-	// BN_free(phi);
-	// BN_free(phi1);
-	// BN_free(phi2);
-	// BN_free(d);
+	BIO_free(fp1);
+	BIO_free(fp2);
+	RSA_free(rsa1);
+	RSA_free(rsa2);
+	RSA_free(private);
+	BN_CTX_free(ctx);
+	BN_free(phi);
+	BN_free(phi1);
+	BN_free(phi2);
+	BN_free(d);
 	}
