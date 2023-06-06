@@ -45,7 +45,9 @@ To test our script, we will use the [DVWA](https://hub.docker.com/r/vulnerables/
 Test with login cookie on DVWA docker image:
 ```bash
 python3 vaccine.py -c "PHPSESSID=hpii9c33hv042qoms0mosrg0d7" http://127.0.0.1/vulnerabilities/sqli/
-```## What this script does?
+```
+
+## What this script does?
 This script is a battery of tests to run against a given `URL` to be able to detect [SQL injection](https://en.wikipedia.org/wiki/SQL_injection) vulnerabilities. It detect type of database engine. The tests can be based on several types: union, error, boolean, time and even blind.
 
 In case a website is confirmed to be vulnerable, the following can be obtained:
