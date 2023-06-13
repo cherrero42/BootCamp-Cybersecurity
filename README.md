@@ -15,7 +15,7 @@ Over the course of 10 weeks, I was able to learn competencies in areas such as c
 |  Project Name | Subject                |       Score      |
 |:-------------:|:--------------- |:----------------:|
 |Python_Module_00| Get started with the Python language    |   **100** / 100  |
-|Python_Module_01| Objects, classes, inheritance, built-in functions, generator   |   **100** / 100  |
+|Python_Module_01| Objects, classes, inheritance, built-in functions, generator  |   **100** / 100  |
 |Python_Module_02| Decorators, lambda, context manager and build package   |   **100** / 100  |
 |   arachnida   | Web Scrapping & EXIF data       |   **125** / 100  |
 |   coRSAir   | Cryptography & Vulnerable Ciphers    |   **100** / 100  |
@@ -26,7 +26,7 @@ Over the course of 10 weeks, I was able to learn competencies in areas such as c
 |   stockholm   | Program that simulates the WannaCry ransomware   |   **100** / 100  |
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
 |  recovery|  Recovery system info on Windows 10 |   **100** / 100  |
-|  extraction|  In progress |   **** / 100  |
+|  extraction|  In progress  |   **** / 100  |
 |  inquisitor|  ARP spoofing  |   **100** / 100  |
 |  vaccine| SQL injection  |   **100** / 100  |
 
