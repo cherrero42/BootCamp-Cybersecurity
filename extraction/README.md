@@ -1,3 +1,4 @@
+![ [python_version](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue) ](https://img.shields.io/badge/python-3.9%20%7C%203.10-blue)
 # extraction
 
 _____________________________________
@@ -7,7 +8,7 @@ _____________________________________
 _____________________________________
 
 
-In this project we familiarize with the MFT (Master File Table) of the NTFS file system (New Technology Filesystem). The objective of this project is to develop a tool that is able to recover deleted files on NTFS. As we all know in most filesystems when you delete a file it is not really deleted, it stays there unless its overwritten, because of this reason in a lot of cases you will be able to recover deleted files when performing a forensics analysis. We always work on a Win10 VM. We are allowed to use any programming language.
+In this project we familiarize with the MFT (Master File Table) of the NTFS file system (New Technology Filesystem). The objective of this project is to develop a tool that is able to recover deleted files on NTFS. As we all know in most filesystems when you delete a file it is not really deleted, it stays there unless its overwritten, because of this reason in a lot of cases you will be able to recover deleted files when performing a forensics analysis. We always work on a Win10 VM. We are allowed to use any programming language. In this case, I code in Python.
 
 You are allowed to use any library that helps you develop this tool for recovering deleted files on NTFS using Python; we need to understand the structure of the Master File Table (MFT) and implement the necessary logic to identify and recover deleted files. Here's a basic outline of the steps involved:
 
