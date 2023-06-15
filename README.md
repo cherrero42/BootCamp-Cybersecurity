@@ -4,7 +4,7 @@
 
 From April 11th to June 16nd, I had the opportunity to participate in a training program in cybersecurity. Additionally, in this bootcamp organized by Fundación Telefónica in collaboration with Telefónica Tech, I acquired basic knowledge of Python, the most popular programming language at the moment.
 
-Over the course of 10 weeks, I was able to learn competencies in areas such as cryptography, network security, secure development and protection, web security, vulnerabilities, computer forensics, malware and malicious codes, OSINT techniques and metadata, and open-source intelligence research, among others.
+Over the course of 10 weeks, I was able to learn competencies in areas such as cryptography, network security, secure development and protection, web security, vulnerabilities, computer forensics, malware and malicious codes, OSINT techniques and metadata, and open-source intelligence research, among others. Finally, I was able to complete all the projects by working as a team.
 
 <p align="center"> <img src="https://user-images.githubusercontent.com/114330677/232305813-670907bd-edeb-466d-be0c-69b8c46a2edd.png" /> </p>
 
@@ -26,7 +26,7 @@ Over the course of 10 weeks, I was able to learn competencies in areas such as c
 |   stockholm   | Program that simulates the WannaCry ransomware   |   **100** / 100  |
 |   iron_dome   |  Daemon service to monitoring illegal activity on Linux |   **125** / 100  |
 |  recovery|  Recovery system info on Windows 10 |   **100** / 100  |
-|  extraction|  In progress  |   **** / 100  |
+|  extraction|  Recovery files from MFT in NTFS  |   **100** / 100  |
 |  inquisitor|  ARP spoofing  |   **100** / 100  |
 |  vaccine| SQL injection  |   **100** / 100  |
 
