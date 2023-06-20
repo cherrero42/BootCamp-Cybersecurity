@@ -2,7 +2,7 @@
 
 42 Málaga Fundación Telefónica
 
-From April 11th to June 16nd, I had the opportunity to participate in a training program in cybersecurity. Additionally, in this bootcamp organized by Fundación Telefónica in collaboration with Telefónica Tech, I acquired basic knowledge of Python, the most popular programming language at the moment.
+From April 11th to June 16nd, I had the opportunity to participate in a training program in CyberSecurity. Additionally, in this bootcamp organized by Fundación Telefónica in collaboration with Telefónica Tech and Splunk, I acquired basic knowledge of Python, the most popular programming language at the moment.
 
 Over the course of 10 weeks, I was able to learn competencies in areas such as cryptography, network security, secure development and protection, web security, vulnerabilities, computer forensics, malware and malicious codes, OSINT techniques and metadata, and open-source intelligence research, among others. Finally, I was able to complete all the projects by working as a team.
 
