@@ -32,6 +32,11 @@ Over the course of 10 weeks, I was able to learn competencies in areas such as c
 
 <p></p>
 
-<p align="center">
+<a href="https://api.eu.badgr.io/public/assertions/PaLGD0_xRyaN8q-rkut5Bw" target="_blank">
+  <img src="./BadgeOvercome.svg" alt="OverCome" width="400">
+</a>
+
+
+<p align"center">
   <img src="./holygraf.jpeg" alt="image"/>
 </p>
