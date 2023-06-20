@@ -1,6 +1,12 @@
-# BootCamp Cybersecurity
+# BootCamp Cybersecurity (II Edition)
 
 42 Málaga Fundación Telefónica
+
+Haber superado el Bootcamp de Ciberseguridad de 42 Málaga Fundación Telefónica y acabar todos los proyectos, permite obtener esta acreditación. Dicho bootcamp es una experiencia disruptiva y presencial, que tiene una duración de 8 semanas y es de nivel medio-avanzado. A lo largo de este periodo, además de desarrollar una serie de habilidades transversales y más sociales, aprendes una serie de conocimientos técnicos en torno a Python, criptografía, seguridad en redes de comunicaciones, desarrollo seguro y protección, seguridad web, vulnerabilidades, informática forense, malware y códigos maliciosos, técnicas OSINT y metadatos, e investigación en fuentes abiertas, entre otros.
+
+<a href="https://api.eu.badgr.io/public/assertions/PaLGD0_xRyaN8q-rkut5Bw" target="_blank">
+  <img src="./BadgeOvercome.svg" alt="OverCome" width="400">
+</a>
 
 From April 11th to June 16nd, I had the opportunity to participate in a training program in CyberSecurity. Additionally, in this bootcamp organized by Fundación Telefónica in collaboration with Telefónica Tech and Splunk, I acquired basic knowledge of Python, the most popular programming language at the moment.
 
@@ -31,11 +37,6 @@ Over the course of 10 weeks, I was able to learn competencies in areas such as c
 |  vaccine| SQL injection  |   **100** / 100  |
 
 <p></p>
-
-<a href="https://api.eu.badgr.io/public/assertions/PaLGD0_xRyaN8q-rkut5Bw" target="_blank">
-  <img src="./BadgeOvercome.svg" alt="OverCome" width="400">
-</a>
-
 
 <p align"center">
   <img src="./holygraf.jpeg" alt="image"/>
