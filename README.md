@@ -8,9 +8,8 @@ Haber superado el Bootcamp de Ciberseguridad de 42 Málaga Fundación Telefónic
   <img src="./BadgeOvercome.svg" alt="OverCome" width="400">
 </a>
 
-From April 11th to June 16nd, I had the opportunity to participate in a training program in CyberSecurity. Additionally, in this bootcamp organized by Fundación Telefónica in collaboration with Telefónica Tech and Splunk, I acquired basic knowledge of Python, the most popular programming language at the moment.
-
-Over the course of 10 weeks, I was able to learn competencies in areas such as cryptography, network security, secure development and protection, web security, vulnerabilities, computer forensics, malware and malicious codes, OSINT techniques and metadata, and open-source intelligence research, among others. Finally, I was able to complete all the projects by working as a team.
+From April 11th to June 16nd, I had the opportunity to participate in a training program in CyberSecurity. In this bootcamp organized by 42 Málaga Fundación Telefónica in collaboration with Telefónica Tech and Splunk, having successfully completed the Cybersecurity Bootcamp, including the completion of all projects, enables the attainment of this accreditation. This bootcamp is a disruptive and in-person experience, lasting 10 weeks and offering a medium-advanced level. Throughout this period, in addition to developing a range of transferable and social skills, you learn technical knowledge focused on Python and competencies in areas such as cryptography, network security, secure development and protection, web security, vulnerabilities, computer forensics, malware and malicious codes, OSINT techniques and metadata, and open-source intelligence research, among others. Finally, I was able to complete all the projects by working as a team.
+I would like to express my sincere gratitude to all my colleagues and the team I have had the privilege to work with. Your support, collaboration, and teamwork have been instrumental in my personal and professional growth
 
 <p align="center"> <img src="https://user-images.githubusercontent.com/114330677/232305813-670907bd-edeb-466d-be0c-69b8c46a2edd.png" /> </p>
 
@@ -40,4 +39,8 @@ Over the course of 10 weeks, I was able to learn competencies in areas such as c
 
 <p align"center">
   <img src="./holygraf.jpeg" alt="image"/>
+</p>
+
+<p align"center">
+  <img src="./logtime.jpeg" alt="image"/>
 </p>
